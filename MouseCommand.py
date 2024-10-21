@@ -2,7 +2,7 @@ import time
 
 import requests
 
-from main import baseUrl, token
+from shared import baseUrl, token
 
 last_request_timestamp = -10000
 cooldown_time = 0.200

@@ -24,6 +24,9 @@ class Point(object):
     def clone(self):
         return copy.deepcopy(self)
 
+    def to_array(self):
+        return [self.x, self.y]
+
     @staticmethod
     def delta(foo, bar):
         return Point(foo.x - bar.x, foo.y - bar.y)

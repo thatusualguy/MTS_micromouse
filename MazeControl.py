@@ -1,6 +1,6 @@
 import requests
 
-from main import baseUrl, token
+from shared import baseUrl, token
 
 
 class MazeControl(object):

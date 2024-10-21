@@ -1,11 +1,12 @@
 from  math import *
 
-from Mouse import *
+from Mouse import Mouse
 from Mover import *
 from PathFinder import *
 from MouseCommand import *
 from Point import *
 
+from shared import graph
 
 class Mapper:
 
@@ -50,12 +51,10 @@ class Mapper:
 
     @staticmethod
     def dfs_map():
-        global graph
-        global center
 
         visited_total = 0
 
-        mouse = Mouse()
+        mouse = Mouse.Mouse()
 
         stack: list[Point] = [mouse.pos]
         visited: list[Point] = []
@@ -82,9 +81,9 @@ class Mapper:
                 visited.append(cur.clone())
                 visited_total += 1
 
-            # if visited_total > 5:
-            #     stack.clear()
-            #     continue
+            if visited_total > 70:
+                stack.clear()
+                continue
 
             neighbors = Mapper.has_direct_connection_to(mouse)
             for node in neighbors:

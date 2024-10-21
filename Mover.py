@@ -1,6 +1,6 @@
 import Mouse
 import Point
-from main import center
+from shared import center
 
 
 class Mover:

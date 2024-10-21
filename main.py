@@ -1,17 +1,13 @@
 from MazeControl import MazeControl
-from Mouse import *
-from Mapper import *
-from Mover import *
+from Mouse import Mouse
+from Mapper import Mapper
+from Mover import Mover
 from PathFinder import *
 from MouseCommand import *
 from Point import *
 
-baseUrl = "http://127.0.0.1:8801/api/v1/"
-token = "b4e1d501-d270-4ead-ab3c-111c5c25338651365c0e-48ec-4289-a8ad-9864f9bfefdd"
 
 
-graph: dict[Point, list[Point]] = dict()
-center = [Point(7, 7), Point(7, 8), Point(8, 8), Point(8, 7), ]
 
 
 # map full map
@@ -21,6 +17,7 @@ print("Nodes:", len(full_graph))
 
 path = PathFinder.dijkstra_basic_find_way_to(full_graph, Point(15, 0), Point(7, 7))
 print("Found path:", *map(str, path))
+print("Found path:", *map(lambda x: x.to_array(), path))
 print("Length:", len(path))
 
 MazeControl.restart()
