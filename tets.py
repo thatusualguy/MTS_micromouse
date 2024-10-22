@@ -1,3 +1,3 @@
 from MouseCommand import MouseCommands
 
-print(MouseCommands.sensors())
+print(MouseCommands.turn_right_90())
