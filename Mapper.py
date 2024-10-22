@@ -13,12 +13,12 @@ class Mapper:
     @staticmethod
     def sensors_to_blocks(sensor_data: dict[str, float]) -> dict[int, int]:
         values = [
-            sensor_data['mapper']["1"],
-            sensor_data['mapper']["2"],
-            sensor_data['mapper']["3"],
-            sensor_data['mapper']["4"],
-            sensor_data['mapper']["5"],
-            sensor_data['mapper']["6"],
+            sensor_data['laser']["1"],
+            sensor_data['laser']["2"],
+            sensor_data['laser']["3"],
+            sensor_data['laser']["4"],
+            sensor_data['laser']["5"],
+            sensor_data['laser']["6"],
         ]
 
         values_in_blocks = []

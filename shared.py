@@ -1,6 +1,6 @@
 from Point import Point
 
-baseUrl = " http://192.168.68.167/"
+baseUrl = "http://192.168.68.167"
 robot_id = "854CAF96103A6853"
 center = [Point(7, 7), Point(7, 8), Point(8, 8), Point(8, 7), ]
 graph: dict[Point, list[Point]] = dict()

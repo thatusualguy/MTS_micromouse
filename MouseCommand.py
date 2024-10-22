@@ -55,11 +55,11 @@ class MouseCommands(object):
 
     @staticmethod
     def get_yaw_raw(sensors_data) -> int:
-        return int(sensors_data["ime"]["yaw"])
+        return int(sensors_data["imu"]["yaw"])
 
     @staticmethod
     def get_yaw(sensors_data) -> int:
-        return int(sensors_data["ime"]["yaw"]) - gyro_correction
+        return int(sensors_data["imu"]["yaw"]) - gyro_correction
 
     @staticmethod
     def get_yaw_now():
