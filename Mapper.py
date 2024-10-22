@@ -15,10 +15,10 @@ class Mapper:
         values = [
             sensor_data['laser']["1"],
             sensor_data['laser']["2"],
-            sensor_data['laser']["3"],
+            # sensor_data['laser']["3"],
             sensor_data['laser']["4"],
             sensor_data['laser']["5"],
-            sensor_data['laser']["6"],
+            # sensor_data['laser']["6"],
         ]
 
         values_in_blocks = []
@@ -32,7 +32,8 @@ class Mapper:
             # values_in_blocks.append(value)
 
         directions = [
-            180, 270, 45, 0, 90, 360-45
+            # 180, 270, 45, 0, 90, 360-45
+            180, 270, 0, 90,
         ]
         return dict(zip(directions, values_in_blocks))
 
