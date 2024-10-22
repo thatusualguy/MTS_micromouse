@@ -17,18 +17,21 @@ class MouseCommands(object):
 
     @staticmethod
     def forward(distance):
+        print("forward ", distance)
         data = {"id":robot_id, "direction": "forward", "len": int(distance)}
         url = baseUrl + '/' + "move"
         print(requests.put(url, json = data).text)
 
     @staticmethod
     def backward(distance):
+        print("distance ", distance)
         data = {"id":robot_id, "direction": "backward", "len": int(distance)}
         url = baseUrl + '/' + "move"
         print(requests.put(url, json = data).text)
 
     @staticmethod
     def turn_right_90():
+        print("right")
         angle = 90
         target =( MouseCommands.get_yaw_now() + 90) % 360
         data = {"id":robot_id, "direction": "right", "len": int(angle+2)}
@@ -38,6 +41,7 @@ class MouseCommands(object):
 
     @staticmethod
     def turn_left_90():
+        print("left")
         angle = 90
         target =( MouseCommands.get_yaw_now() - 90) % 360
         data = {"id":robot_id, "direction": "left", "len": int(angle+2)}

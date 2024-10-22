@@ -55,7 +55,7 @@ class Mapper:
 
     @staticmethod
     def dfs_map():
-
+        global graph
         visited_total = 0
 
         mouse = Mouse.Mouse()
@@ -66,6 +66,7 @@ class Mapper:
         while len(stack):
             print("Progress discovering map: ", len(visited), '/', 16 * 16, " = ", int(len(visited) / (16 * 16) * 100),
                   '%', sep='')
+            print("Found map:", *map(str, graph))
 
             cur = stack[-1].clone()
             stack.pop()
