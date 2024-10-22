@@ -33,13 +33,29 @@ class MouseCommands(object):
 
     @staticmethod
     def turn_right_90():
-        print("right")
-        angle = 90
-        target =( MouseCommands.get_yaw_now() + 90) % 360
-        data = {"id":robot_id, "direction": "right", "len": int(angle+2)}
-        url = baseUrl + '/' + "move"
-        requests.put(url, json = data)
-        print( MouseCommands.get_yaw_now())
+        start_angle = MouseCommands.get_yaw_now()
+        current_angle = MouseCommands.get_yaw_now()
+        end_angle = start_angle + 90
+        while abs(current_angle - end_angle)>2:
+            diff = current_angle - end_angle
+            print(diff)
+            # magnitude = 255 * abs(diff)/90 * 2
+            magnitude = 255
+            if abs(diff) < 10:
+                magnitude = abs(diff)*2
+
+            if diff > 0:
+                # left
+                print("left ", magnitude)
+                MouseCommands.move(-magnitude, 200, magnitude, 200)
+                pass
+            elif diff < 0:
+                #right
+                print("right ", magnitude)
+                MouseCommands.move(magnitude, 200, -magnitude, 200)
+                pass
+            time.sleep(0.2)
+            current_angle = MouseCommands.get_yaw_now()
 
     @staticmethod
     def turn_left_90():
