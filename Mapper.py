@@ -13,10 +13,12 @@ class Mapper:
     @staticmethod
     def sensors_to_blocks(sensor_data: dict[str, float]) -> dict[int, int]:
         values = [
-            sensor_data['front_distance'],
-            sensor_data['right_side_distance'],
-            sensor_data['left_side_distance'],
-            sensor_data['back_distance'],
+            sensor_data['mapper']["1"],
+            sensor_data['mapper']["2"],
+            sensor_data['mapper']["3"],
+            sensor_data['mapper']["4"],
+            sensor_data['mapper']["5"],
+            sensor_data['mapper']["6"],
         ]
 
         values_in_blocks = []
@@ -28,7 +30,7 @@ class Mapper:
             values_in_blocks.append(value)
 
         directions = [
-            0, 90, 270, 180
+            180, 270, 45, 0, 90, 360-45
         ]
         return dict(zip(directions, values_in_blocks))
 
@@ -81,9 +83,9 @@ class Mapper:
                 visited.append(cur.clone())
                 visited_total += 1
 
-            if visited_total > 70:
-                stack.clear()
-                continue
+            # if visited_total > 70:
+            #     stack.clear()
+            #     continue
 
             neighbors = Mapper.has_direct_connection_to(mouse)
             for node in neighbors:

@@ -1,4 +1,3 @@
-from MazeControl import MazeControl
 from Mouse import Mouse
 from Mapper import Mapper
 from Mover import Mover
@@ -8,7 +7,9 @@ from Point import *
 
 
 
+input("Готов к забегу - исследованию?")
 
+MouseCommands.calibrate_gyro()
 
 # map full map
 full_graph = Mapper.dfs_map()
@@ -20,20 +21,14 @@ print("Found path:", *map(str, path))
 print("Found path:", *map(lambda x: x.to_array(), path))
 print("Length:", len(path))
 
-MazeControl.restart()
-time.sleep(2)
 
-print("First run")
-# run best line twice
-cooldown_time = 0.150
+input("Готов к забегу - на время 1?")
+MouseCommands.calibrate_gyro()
 Mover.basic_follow_path(Mouse(), path, end_in_center=True)
-time.sleep(0.5)
-# MazeControl.restart()
+print("Конец забега")
 
-print("Second run")
-# lower cooldown for a try
-# noinspection PyRedeclaration
-cooldown_time = 0.130
+
+input("Готов к забегу - на время 2?")
+MouseCommands.calibrate_gyro()
 Mover.basic_follow_path(Mouse(), path, end_in_center=True)
-time.sleep(0.5)
-MazeControl.restart()
+print("Конец")
