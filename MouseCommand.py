@@ -40,7 +40,7 @@ class MouseCommands(object):
     def turn_left_90():
         angle = 90
         target =( MouseCommands.get_yaw_now() - 90) % 360
-        data = {"id":robot_id, "direction": "right", "len": int(-angle-2)}
+        data = {"id":robot_id, "direction": "left", "len": int(angle+2)}
         url = baseUrl + '/' + "move"
         requests.put(url, json = data)
         print( MouseCommands.get_yaw_now())
