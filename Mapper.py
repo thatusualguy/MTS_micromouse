@@ -23,11 +23,13 @@ class Mapper:
 
         values_in_blocks = []
         for value in values:
-            if value < 80:
+            if value < 120:
                 values_in_blocks.append(0)
                 continue
-            value = round(value / 160.0)
-            values_in_blocks.append(value)
+            else:
+                values_in_blocks.append(1)
+            # value = round(value / 160.0)
+            # values_in_blocks.append(value)
 
         directions = [
             180, 270, 45, 0, 90, 360-45
