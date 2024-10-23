@@ -26,6 +26,7 @@ def sensors():
         "token": token,
     }
     res = requests.get(baseUrl+ "robot-motors/sensor-data", params=params).json()
+    print(res)
     hdg = res["rotation_yaw"]
     if hdg<0:
         hdg = 360 + hdg

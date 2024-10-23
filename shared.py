@@ -9,8 +9,18 @@ gyro_correction = 0
 
 calibration_filename = 'calibrated_data.json'
 local_calibration_filename = 'local_calibrated_data.json'
-local_baseUrl = "http://127.0.0.1:8801/api/v1"
+local_baseUrl = "http://127.0.0.1:8801/api/v1/"
 local_token = 'some-token-code'
+
+MOVE_SLEEP_TIME = 0.1
+CALIBRATION_EPS = 0.3
+CALIBRATION_COUNT_TESTS = 10
+CALIBRATION_STEP = 10
+CALIBRATION_START_POWER = 220
+# в миллисекундах
+CALIBRATION_LEFT_BOUND = 100
+CALIBRATION_RIGHT_BOUND = 6000
+
 
 # {
 #     "laser": {
