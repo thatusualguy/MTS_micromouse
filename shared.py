@@ -6,6 +6,12 @@ center = [Point(7, 7), Point(7, 8), Point(8, 8), Point(8, 7), ]
 graph: dict[Point, list[Point]] = dict()
 gyro_correction = 0
 
+
+calibration_filename = 'calibrated_data.json'
+local_calibration_filename = 'local_calibrated_data.json'
+local_baseUrl = "http://127.0.0.1:8801/api/v1"
+local_token = 'some-token-code'
+
 # {
 #     "laser": {
 #         "1": 65535,
