@@ -27,7 +27,7 @@ CALIBRATION_STEP = 10
 CALIBRATION_START_POWER = 220
 # в миллисекундах
 CALIBRATION_LEFT_BOUND = 100
-CALIBRATION_RIGHT_BOUND = 6000
+CALIBRATION_RIGHT_BOUND = 2000
 
 calibrated_turns : dict[int,  dict[str, int | float]] = dict()
 
