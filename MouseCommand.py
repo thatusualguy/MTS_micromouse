@@ -24,11 +24,10 @@ class MouseCommands(object):
     @staticmethod
     def move(left, left_time_ms, right, right_time_ms):
         if TYPE == "real":
-            data = {"id":real_robotId, "l": int(left), "r":int(right), "l_rime":int(left_time_ms), "r_rime":int(right_time_ms)}
+            data = {"id":real_robotId, "l": int(left), "r":int(right), "l_time":int(left_time_ms), "r_time":int(right_time_ms)}
             url = real_baseUrl + '/' + "motor"
-            print(url)
             print(data)
-            print(requests.put(url, json = data).text)
+            requests.put(url, json = data)
         elif TYPE == "local":
             url = local_baseUrl + 'robot-motors/move'
             params = {
