@@ -27,7 +27,7 @@ class MouseCommands(object):
             data = {"id":real_robotId, "l": int(left), "r":int(right), "l_rime":left_time_ms, "r_rime":right_time_ms}
             url = real_baseUrl + '/' + "motor"
             print(data)
-            requests.put(url, json = data)
+            print(requests.put(url, json = data).text)
         elif TYPE == "local":
             url = local_baseUrl + 'robot-motors/move'
             params = {
