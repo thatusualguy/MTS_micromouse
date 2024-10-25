@@ -24,7 +24,7 @@ class MouseCommands(object):
     @staticmethod
     def move(left, left_time_ms, right, right_time_ms):
         if TYPE == "real":
-            data = {"id":real_robotId, "l": int(left), "r":int(right), "l_rime":left_time_ms, "r_rime":right_time_ms}
+            data = {"id":real_robotId, "l": int(left), "r":int(right), "l_rime":int(left_time_ms), "r_rime":int(right_time_ms)}
             url = real_baseUrl + '/' + "motor"
             print(data)
             print(requests.put(url, json = data).text)
