@@ -1,11 +1,9 @@
 from Mouse import Mouse
 from Mapper import Mapper
 from Mover import Mover
-from PathFinder import *
-from MouseCommand import *
-from Point import *
-
-
+from PathFinder import PathFinder
+from MouseCommand import MouseCommands
+from Point import Point
 
 input("Готов к забегу - исследованию?")
 

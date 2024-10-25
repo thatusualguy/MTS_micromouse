@@ -1,16 +1,24 @@
 from Point import Point
 
-baseUrl = "http://192.168.68.167"
-robot_id = "854CAF96103A6853"
+TYPE = "local"
+# TYPE = "real"
+
+
 center = [Point(7, 7), Point(7, 8), Point(8, 8), Point(8, 7), ]
 graph: dict[Point, list[Point]] = dict()
+
+real_baseUrl = "http://192.168.68.167"
+real_robotId = "854CAF96103A6853"
 gyro_correction = 0
-
-
 calibration_filename = 'calibrated_data.json'
+real_CELL_SIZE = 180
+real_robotSize = 75
+
 local_calibration_filename = 'local_calibrated_data.json'
 local_baseUrl = "http://127.0.0.1:8801/api/v1/"
 local_token = 'some-token-code'
+local_CELL_SIZE = 180
+local_robotSize = 75
 
 MOVE_SLEEP_TIME = 0.1
 CALIBRATION_EPS = 0.3
@@ -21,6 +29,7 @@ CALIBRATION_START_POWER = 220
 CALIBRATION_LEFT_BOUND = 100
 CALIBRATION_RIGHT_BOUND = 6000
 
+calibrated_turns : dict[int,  dict[str, int | float]] = dict()
 
 # {
 #     "laser": {

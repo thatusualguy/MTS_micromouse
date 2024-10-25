@@ -11,39 +11,12 @@ from shared import graph
 class Mapper:
 
     @staticmethod
-    def sensors_to_blocks(sensor_data: dict[str, float]) -> dict[int, int]:
-        values = [
-            sensor_data['laser']["1"],
-            sensor_data['laser']["2"],
-            # sensor_data['laser']["3"],
-            sensor_data['laser']["4"],
-            sensor_data['laser']["5"],
-            # sensor_data['laser']["6"],
-        ]
-
-        values_in_blocks = []
-        for value in values:
-            if value < 120:
-                values_in_blocks.append(0)
-                continue
-            else:
-                values_in_blocks.append(1)
-            # value = round(value / 160.0)
-            # values_in_blocks.append(value)
-
-        directions = [
-            # 180, 270, 45, 0, 90, 360-45
-            180, 270, 0, 90,
-        ]
-        return dict(zip(directions, values_in_blocks))
-
-    @staticmethod
     def has_direct_connection_to(mouse: Mouse) -> list[Point]:
-        sensors: dict[int, int] = Mapper.sensors_to_blocks(MouseCommands.sensors())
+        blocks: dict[int, int] = MouseCommands.sensors_to_blocks()
         res = []
 
-        for heading, dist in sensors.items():
-            if dist == 0:
+        for heading, blocks in blocks.items():
+            if blocks == 0:
                 continue
 
             heading = mouse.to_global_heading(heading)
