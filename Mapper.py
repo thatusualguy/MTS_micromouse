@@ -14,12 +14,13 @@ class Mapper:
     def has_direct_connection_to(mouse: Mouse) -> list[Point]:
         blocks: dict[int, int] = MouseCommands.sensors_to_blocks()
         res = []
-
+        print(blocks)
         for heading, blocks in blocks.items():
             if blocks == 0:
                 continue
-
+            a = heading
             heading = mouse.to_global_heading(heading)
+            print(a, heading)
             cur = mouse.pos
             dx = - round(1 *cos(radians(heading)))
             dy = round(1 * sin(radians(heading)))
@@ -65,6 +66,7 @@ class Mapper:
             #     continue
 
             neighbors = Mapper.has_direct_connection_to(mouse)
+            print("Connected to", map(str, neighbors))
             for node in neighbors:
                 if node not in visited:
                     stack.append(node.clone())

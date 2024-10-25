@@ -45,6 +45,7 @@ class Mouse(object):
                 self.left()
             elif turn_deg > 0:
                 self.right()
+        self.heading = new_heading
 
     def to_global_heading(self, direction):
         return (self.heading + direction) % 360

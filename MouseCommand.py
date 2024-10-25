@@ -26,6 +26,7 @@ class MouseCommands(object):
         if TYPE == "real":
             data = {"id":real_robotId, "l": int(left), "r":int(right), "l_rime":left_time_ms, "r_rime":right_time_ms}
             url = real_baseUrl + '/' + "motor"
+            print(data)
             requests.put(url, json = data)
         elif TYPE == "local":
             url = local_baseUrl + 'robot-motors/move'
@@ -74,11 +75,11 @@ class MouseCommands(object):
         while True:
             diff = (cur_distances[0] - target_distances[0]) / 2 + (target_distances[180] - cur_distances[180]) / 2
 
-            print("Distance diff", diff)
+            # print("Distance diff", diff)
 
             if TYPE =="local":
                 speed = abs((cur_distances[0] - prev_distances[0]) / 2 + (prev_distances[180] - cur_distances[180]) / 2) / SLEEP
-                print("speed", speed)
+                # print("speed", speed)
 
                 if abs(diff) < max_error and speed < max_final_speed:
                     break
@@ -98,7 +99,7 @@ class MouseCommands(object):
                 if abs(speed) > abs(diff):
                     multiplier *= -1
 
-                print("Power", int(power * multiplier))
+                # print("Power", int(power * multiplier))
 
                 MouseCommands.move(power * multiplier, SLEEP*1000, power * multiplier, SLEEP*1000)
                 sleep(SLEEP)
@@ -149,7 +150,7 @@ class MouseCommands(object):
             target_yaw += 360
 
         diff = get_turn_direction(start_yaw, target_yaw)
-        while diff != 0:
+        while abs(diff) > 1:
 
             direction = 1
             if diff < 0:
@@ -172,11 +173,13 @@ class MouseCommands(object):
 
     @staticmethod
     def turn_right_90():
-        MouseCommands.turn(90)
+        target = int((MouseCommands.sensors()['yaw'] + 90)/90)* 90
+        MouseCommands.turn(target)
 
     @staticmethod
     def turn_left_90():
-        MouseCommands.turn(-90)
+        target = int((MouseCommands.sensors()['yaw'] + 270)/90)* 90
+        MouseCommands.turn(target)
 
 
     @staticmethod
@@ -230,7 +233,7 @@ class MouseCommands(object):
 
             result: dict[str, dict[int, int] | int] = dict()
             result['dist'] = dict(zip(directions, values))
-            result['yaw_raw'] = data["rotation_yaw"]
+            result['yaw_raw'] = int(data["rotation_yaw"])
 
             corrected = (result['yaw_raw'] + gyro_correction) % 360
             if corrected < 0:
