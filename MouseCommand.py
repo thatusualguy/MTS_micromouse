@@ -64,8 +64,8 @@ class MouseCommands(object):
                 print("Moving too far!")
                 exit(1)
 
-        max_error = 8
-        max_final_speed = 3
+        max_error = 5
+        max_final_speed = 2
         power = 150
         SLEEP = 0.1
 
@@ -74,6 +74,7 @@ class MouseCommands(object):
         while True:
             diff = (cur_distances[0] - target_distances[0]) / 2 + (target_distances[180] - cur_distances[180]) / 2
 
+            print("Distance diff", diff)
 
             if TYPE =="local":
                 speed = abs((cur_distances[0] - prev_distances[0]) / 2 + (prev_distances[180] - cur_distances[180]) / 2) / SLEEP
@@ -85,7 +86,6 @@ class MouseCommands(object):
                 if speed == 0:
                     speed = 0.0000001
 
-                print("Distance diff", diff)
                 if diff > 0:
                     multiplier = 1
                 else:
@@ -132,7 +132,7 @@ class MouseCommands(object):
             distance=local_CELL_SIZE
 
         forward = MouseCommands.sensors()['dist'][0]
-        if forward < 200:
+        if forward < 250:
             distance = forward - 50
 
         MouseCommands.forward(distance)
