@@ -64,7 +64,8 @@ class MouseCommands(object):
                 print("Moving too far!")
                 exit(1)
 
-        max_error = 2
+        max_error = 8
+        max_final_speed = 3
         power = 150
         SLEEP = 0.1
 
@@ -78,7 +79,7 @@ class MouseCommands(object):
                 speed = abs((cur_distances[0] - prev_distances[0]) / 2 + (prev_distances[180] - cur_distances[180]) / 2) / SLEEP
                 print("speed", speed)
 
-                if abs(diff) < max_error and speed < 1:
+                if abs(diff) < max_error and speed < max_final_speed:
                     break
 
                 if speed == 0:
@@ -103,7 +104,7 @@ class MouseCommands(object):
                 sleep(SLEEP)
 
             if TYPE =="real":
-                if abs(diff)<10:
+                if abs(diff)<max_error:
                     break
 
                 data = {"id":real_robotId, "direction": "forward", "len": abs(int(diff))}
