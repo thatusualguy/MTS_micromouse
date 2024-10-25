@@ -26,6 +26,7 @@ class MouseCommands(object):
         if TYPE == "real":
             data = {"id":real_robotId, "l": int(left), "r":int(right), "l_rime":int(left_time_ms), "r_rime":int(right_time_ms)}
             url = real_baseUrl + '/' + "motor"
+            print(url)
             print(data)
             print(requests.put(url, json = data).text)
         elif TYPE == "local":
