@@ -3,7 +3,7 @@ from MouseCommand import MouseCommands
 if __name__ == "__main__":
 
     MouseCommands.calibrate_gyro()
-    # MouseCommands.calibrate_basic_rotations()
+    MouseCommands.calibrate_basic_rotations()
     MouseCommands.load_calibrated_data()
     while True:
         MouseCommands.sensors_raw()

@@ -7,8 +7,8 @@ TYPE = "local"
 center = [Point(7, 7), Point(7, 8), Point(8, 8), Point(8, 7), ]
 graph: dict[Point, list[Point]] = dict()
 
-real_baseUrl = "http://192.168.68.167"
-real_robotId = "854CAF96103A6853"
+real_baseUrl = "http://192.168.68.134"
+real_robotId = "3536AF962E7A4A53"
 gyro_correction = 0
 calibration_filename = 'calibrated_data.json'
 real_CELL_SIZE = 180
@@ -21,7 +21,7 @@ local_CELL_SIZE = 180
 local_robotSize = 75
 
 MOVE_SLEEP_TIME = 0.1
-CALIBRATION_EPS = 0.3
+CALIBRATION_EPS = 0.5
 CALIBRATION_COUNT_TESTS = 10
 CALIBRATION_STEP = 10
 CALIBRATION_START_POWER = 220
