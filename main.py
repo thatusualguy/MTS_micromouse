@@ -8,6 +8,7 @@ from Point import Point
 input("Готов к забегу - исследованию?")
 
 MouseCommands.calibrate_gyro()
+MouseCommands.load_calibrated_data()
 
 # map full map
 full_graph = Mapper.dfs_map()

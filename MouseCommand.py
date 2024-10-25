@@ -5,7 +5,6 @@ from typing import Dict, Any
 import requests
 
 import shared
-from Mouse import Mouse
 from shared import real_baseUrl, real_robotId, gyro_correction, TYPE, local_baseUrl, local_token, real_CELL_SIZE, \
     local_CELL_SIZE, real_robotSize, local_robotSize
 
@@ -104,6 +103,9 @@ class MouseCommands(object):
                 sleep(SLEEP)
 
             if TYPE =="real":
+                if abs(diff)<10:
+                    break
+
                 data = {"id":real_robotId, "direction": "forward", "len": abs(int(diff))}
                 if diff>0:
                     data["direction"] = "forward"
@@ -121,10 +123,18 @@ class MouseCommands(object):
 
     @staticmethod
     def forward_one():
+        distance = 0
+
         if TYPE == "real":
-            MouseCommands.forward(real_CELL_SIZE)
+            distance = real_CELL_SIZE
         elif TYPE == "local":
-            MouseCommands.forward(local_CELL_SIZE)
+            distance=local_CELL_SIZE
+
+        forward = MouseCommands.sensors()['dist'][0]
+        if forward < 200:
+            distance = forward - 50
+
+        MouseCommands.forward(distance)
 
     @staticmethod
     def backward(distance):
@@ -141,8 +151,9 @@ class MouseCommands(object):
         while diff != 0:
 
             direction = 1
-            if diff <0:
+            if diff < 0:
                 direction = -1
+                diff *= -1
 
             for degrees, params in shared.calibrated_turns.items():
                 print(diff, degrees)
@@ -266,8 +277,8 @@ class MouseCommands(object):
     def sensors_to_blocks() -> dict[int, int]:
         data = MouseCommands.sensors()
         result = dict()
-
-        for k, v in data["dist"].values():
+        print(data)
+        for k, v in data["dist"].items():
             if k % 90 != 0:
                 continue
 
@@ -280,9 +291,8 @@ class MouseCommands(object):
 
     @staticmethod
     def calibrate_gyro():
-        global gyro_correction
         cur = MouseCommands.sensors()["yaw"]
-        gyro_correction = -cur
+        shared.gyro_correction = -cur
 
 
     @staticmethod
