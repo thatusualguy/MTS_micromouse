@@ -49,7 +49,8 @@ class Mapper:
             if cur in center:
                 print("Found center!")
                 visited.append(cur)
-                continue
+                return graph
+                # continue
 
             # move to new node
             how = PathFinder.dijkstra_basic_find_way_to(graph, mouse.pos.clone(), cur.clone())

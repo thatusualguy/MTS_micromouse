@@ -173,13 +173,13 @@ class MouseCommands(object):
 
     @staticmethod
     def turn_right_90():
-        target = int((MouseCommands.sensors()['yaw'] + 90)/90)* 90
-        MouseCommands.turn(target)
+        target = round((MouseCommands.sensors()['yaw'] + 90)/90)* 90
+        MouseCommands.turn_to(target)
 
     @staticmethod
     def turn_left_90():
-        target = int((MouseCommands.sensors()['yaw'] + 270)/90)* 90
-        MouseCommands.turn(target)
+        target = round((MouseCommands.sensors()['yaw'] + 270)/90)* 90 % 360
+        MouseCommands.turn_to(target)
 
 
     @staticmethod
@@ -283,10 +283,11 @@ class MouseCommands(object):
         result = dict()
         print(data)
         for k, v in data["dist"].items():
-            if k % 90 != 0:
+            if k in [45, 360-45]:
+                print("Excluded", k)
                 continue
 
-            if v < 120:
+            if v < 130:
                 result[k]=0
             else:
                 result[k]=1
