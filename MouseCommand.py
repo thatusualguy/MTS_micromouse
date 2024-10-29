@@ -79,7 +79,7 @@ class MouseCommands(object):
                 print("Moving too far!")
                 exit(1)
 
-        max_error = 5
+        max_error = 20
         max_final_speed = 2
         power = 150
         SLEEP = 0.1
@@ -129,6 +129,7 @@ class MouseCommands(object):
                     data["direction"] = "backward"
 
                 url = real_baseUrl + '/' + "move"
+                print(data)
                 print(requests.put(url, json = data).text)
 
             prev_distances = cur_distances
@@ -165,7 +166,6 @@ class MouseCommands(object):
 
         diff = get_turn_direction(start_yaw, target_yaw)
         while abs(diff) > 3:
-
             direction = 1
             if diff < 0:
                 direction = -1
