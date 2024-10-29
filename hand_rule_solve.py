@@ -40,9 +40,11 @@ def sensors() -> dict[str, dict[int, int] | int]:
             data['laser']["2"],
             data['laser']["4"],
             data['laser']["5"],
+            data['laser']["3"],
+            data['laser']["6"],
         ]
         directions = [
-            180, 270, 0, 90,
+            180, 270, 0, 90, 45, 360-45
         ]
 
         result: dict[str, dict[int, int] | int] = dict()
@@ -106,6 +108,7 @@ class AA:
     isRightHand = False
 
     def __init__(self, isRightHand):
+        self.WE_ARE_IN_CENTER = False
         global sev_yaw
 
         self.current_y = 15
@@ -116,7 +119,7 @@ class AA:
         self.autopilot()
 
     def autopilot(self):
-        logging.info(f"Autopilot in {self.current_x} {self.current_y}")
+        logging.info(f"Autopilot in {self.current_x} {self.current_y} start")
         for rotation in self.get_neighbours():
             if rotation == 'left':
                 self.rotate_left()
@@ -124,7 +127,7 @@ class AA:
                 self.rotate_right()
             self.move_forward()
             self.autopilot()
-            if self.we_are_in_center():
+            if self.WE_ARE_IN_CENTER or self.we_are_in_center():
                 return
             self.move_back()
             if rotation == 'right':
@@ -175,12 +178,22 @@ class AA:
         return neighbours
 
     def we_are_in_center(self):
-        return self.current_x in (7, 8) and self.current_y in (7, 8)
+        res = self.current_x in (7, 8) and self.current_y in (7, 8)
+        # sensor_data = sensors()
+        # res =  sensor_data['dist'][0] > 150 and sensor_data['dist'][90] > 150 and sensor_data['dist'][45] > 150
+        if res:
+            logging.info(f"We are in center!!!")
+            self.WE_ARE_IN_CENTER = True
+        return res
+
+
 
     def get_by_yaw(self):
         sensor_data = sensors()
         dx = - round(1 * cos(radians(sensor_data['yaw'])))
         dy = round(1 * sin(radians(sensor_data['yaw'])))
+
+        logging.info(f"yaw: {sensor_data['yaw']}, dx: {dx}, dy: {dy}")
         return dx, dy
 
 

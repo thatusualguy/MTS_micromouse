@@ -29,7 +29,7 @@ if __name__ == "__main__":
             backwards(abs(dist))
 
         end = sensors()['dist'][0]
-        target = (end+dist)
-        error = target - end
+        real = abs(start - end)
+        target = 180
 
-        logging.info(f"dist {dist}, target {target}, error {error}, start {start}, end {end}")
+        logging.info(f"dist {dist}, target {target}, real {real}, start {start}, end {end}")
