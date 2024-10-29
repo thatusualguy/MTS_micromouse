@@ -8,7 +8,7 @@ from Point import Point
 input("Готов к забегу - исследованию?")
 
 MouseCommands.calibrate_gyro()
-MouseCommands.calibrate_basic_rotations()
+# MouseCommands.calibrate_basic_rotations()
 MouseCommands.load_calibrated_data()
 
 # map full map

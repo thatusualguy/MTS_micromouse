@@ -1,7 +1,7 @@
 from Point import Point
 
-# TYPE = "local"
-TYPE = "real"
+TYPE = "local"
+# TYPE = "real"
 
 
 center = [Point(7, 7), Point(7, 8), Point(8, 8), Point(8, 7), ]

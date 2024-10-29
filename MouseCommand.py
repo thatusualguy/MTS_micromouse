@@ -1,5 +1,6 @@
 import json
-from time import sleep
+import time
+from time import sleep, time_ns
 from typing import Dict, Any
 
 import requests
@@ -16,6 +17,8 @@ def get_turn_direction(start, target):
         turn -= 360
     return int(turn)
 
+prev_request = -100
+wait_time = 1.400
 
 
 
@@ -39,6 +42,17 @@ class MouseCommands(object):
             }
             requests.post(url, params=params)
 
+    @staticmethod
+    def forward_real(dist):
+        data = {"id":real_robotId, "direction": "forward", "len": abs(int(dist))}
+        url = real_baseUrl + '/' + "move"
+        print(requests.put(url, json = data).text)
+
+    @staticmethod
+    def back_real(dist):
+        data = {"id":real_robotId, "direction": "backwards", "len": abs(int(dist))}
+        url = real_baseUrl + '/' + "move"
+        print(requests.put(url, json = data).text)
 
     @staticmethod
     def forward(distance):
@@ -197,6 +211,13 @@ class MouseCommands(object):
 
     @staticmethod
     def sensors() -> dict[str, dict[int, int] | int]:
+        global prev_request
+        time_to_sleep =  prev_request+wait_time - time.time()
+        if time_to_sleep > 0:
+            print("sleeping", time_to_sleep)
+            time.sleep(time_to_sleep)
+        prev_request = time.time()
+
         if TYPE == "real":
             data = MouseCommands.sensors_raw()
 
