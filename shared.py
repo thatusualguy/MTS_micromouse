@@ -1,14 +1,16 @@
 from Point import Point
 
-TYPE = "local"
-# TYPE = "real"
+# TYPE = "local"
+TYPE = "real"
 
 
 center = [Point(7, 7), Point(7, 8), Point(8, 8), Point(8, 7), ]
 graph: dict[Point, list[Point]] = dict()
 
-real_baseUrl = "http://192.168.68.134"
-real_robotId = "3536AF962E7A4A53"
+
+
+real_baseUrl = "http://192.168.68.112"
+real_robotId = "3547AF16067F6053"
 gyro_correction = 0
 calibration_filename = 'calibrated_data.json'
 real_CELL_SIZE = 180
