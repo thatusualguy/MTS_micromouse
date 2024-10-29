@@ -2,6 +2,7 @@ import json
 import logging
 import time
 from math import radians, cos, sin
+from time import sleep
 from typing import Any
 
 
@@ -12,6 +13,14 @@ from girl import girl_pasta
 from shared import real_robotId, TYPE, real_baseUrl, local_baseUrl, local_token, wait_time
 
 sev_yaw = 0
+
+
+def pwm_move(left, left_time_ms, right, right_time_ms):
+    data = {"id":real_robotId, "l": int(left), "r":int(right), "l_time":int(left_time_ms), "r_time":int(right_time_ms)}
+    url = real_baseUrl + '/' + "motor"
+    logging.info(json.dumps(data))
+    requests.put(url, json = data)
+
 
 def sensors_raw() -> dict[Any]:
     if TYPE == "real":
@@ -25,12 +34,14 @@ def sensors_raw() -> dict[Any]:
         res = requests.get(url, params = params).json()
         return res
 
-def sensors() -> dict[str, dict[int, int] | int]:
-    time_to_sleep =  shared.prev_request+wait_time - time.time()
-    if time_to_sleep > 0:
-        print("sleeping", time_to_sleep)
-        time.sleep(time_to_sleep)
-    shared.prev_request = time.time()
+def sensors(no_wait = False) -> dict[str, dict[int, int] | int]:
+    # time_to_sleep =  shared.prev_request+wait_time - time.time()
+    # if time_to_sleep > 0:
+    #     print("sleeping", time_to_sleep)
+    #     time.sleep(time_to_sleep)
+    # shared.prev_request = time.time()
+
+    sleep(wait_time)
 
     if TYPE == "real":
         data = sensors_raw()
@@ -93,6 +104,32 @@ def left():
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
+
+    while True:
+        yaw = sensors(True)['yaw']
+        closest = closest_angle(yaw)
+        delta = get_turn_direction(yaw, closest)
+
+        logging.info(f"MICROSTRAFE yaw {yaw} closest {closest} delta {delta}")
+
+        if abs(delta)>3:
+            direction = 1
+            if delta<0:
+                direction = -1
+            pwm_move(255*direction, 20, -255*direction, 20)
+        else:
+            break
+
+def get_turn_direction(start, target):
+    turn = (target - start) % 360
+    if turn > 180:
+        turn -= 360
+    return int(turn)
+
+
+def closest_angle(angle):
+    return  (angle+45)//90* 90 % 360
+
 
 
 def backwards():
