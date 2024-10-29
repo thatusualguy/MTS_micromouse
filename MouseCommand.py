@@ -164,7 +164,7 @@ class MouseCommands(object):
             target_yaw += 360
 
         diff = get_turn_direction(start_yaw, target_yaw)
-        while abs(diff) > 1:
+        while abs(diff) > 3:
 
             direction = 1
             if diff < 0:
@@ -323,7 +323,7 @@ class MouseCommands(object):
 
     @staticmethod
     def calibrate_basic_rotations():
-        res = MouseCommands.calibrate_all_angles([90, 45, 22, 8, 4, 2, 1])
+        res = MouseCommands.calibrate_all_angles([90])
         print("Calibrated turns:", res)
         shared.calibrated_turns = res
         MouseCommands.turn_to(0)
