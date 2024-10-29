@@ -33,7 +33,7 @@ CALIBRATION_RIGHT_BOUND = 2000
 
 
 prev_request = -10000
-wait_time = 1.400
+wait_time = 2
 
 
 calibrated_turns : dict[int,  dict[str, int | float]] = dict()
