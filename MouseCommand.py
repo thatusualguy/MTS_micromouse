@@ -326,8 +326,8 @@ class MouseCommands(object):
         res = MouseCommands.calibrate_all_angles([90])
         print("Calibrated turns:", res)
         shared.calibrated_turns = res
-        MouseCommands.turn_to(0)
         MouseCommands.dump_data(shared.calibrated_turns)
+        MouseCommands.turn_to(0)
 
     @staticmethod
     def get_delta(a, b):
