@@ -197,6 +197,8 @@ class AA:
 
 
 if __name__ == "__main__":
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
     print(girl_pasta)
     start_RightHand = True
     start_RightHand = 1 == int(input("С какой руки начать? 1 - правая"))

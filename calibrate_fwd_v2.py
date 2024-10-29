@@ -19,6 +19,8 @@ def backwards(dist):
     requests.put(url, json = data)
 
 if __name__ == "__main__":
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
     while True:
         dist = int(input())
         start = sensors()['dist'][0]
