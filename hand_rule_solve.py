@@ -101,8 +101,6 @@ def backwards():
 
 
 
-
-
 class AA:
 
     isRightHand = False
