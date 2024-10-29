@@ -96,7 +96,7 @@ def left():
 
 
 def backwards():
-    dist = 125
+    dist = 130
     data = {"id":real_robotId, "direction": "backward", "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
