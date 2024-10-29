@@ -9,8 +9,8 @@ graph: dict[Point, list[Point]] = dict()
 
 
 
-real_baseUrl = "http://192.168.68.112"
-real_robotId = "3547AF16067F6053"
+real_baseUrl = "http://192.168.68.202"
+real_robotId = "7536AF961D784A53"
 gyro_correction = 0
 calibration_filename = 'calibrated_data.json'
 real_CELL_SIZE = 180

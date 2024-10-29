@@ -187,7 +187,6 @@ class AA:
         return res
 
 
-
     def get_by_yaw(self):
         sensor_data = sensors()
         dx = - round(1 * cos(radians(sensor_data['yaw'])))
@@ -205,3 +204,4 @@ if __name__ == "__main__":
     AA(start_RightHand)
     input("Вы готовы, дети?")
     AA(not start_RightHand)
+    print(girl_pasta)
