@@ -21,6 +21,8 @@ def left(turn):
 
 
 if __name__ == "__main__":
+    logging.basicConfig()
+    logging.getLogger().setLevel(logging.INFO)
     while True:
         turn = int(input())
         start_yaw = sensors()['yaw']
