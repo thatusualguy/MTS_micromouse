@@ -84,7 +84,7 @@ def sensors(no_wait = False) -> dict[str, dict[int, int] | int]:
         return result
 
 def forward():
-    dist = 135
+    dist = 140
     data = {"id":real_robotId, "direction": "forward", "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
@@ -93,7 +93,7 @@ def forward():
 
 
 def backwards():
-    dist = 135
+    dist = 140
     data = {"id":real_robotId, "direction": "backward", "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
@@ -251,7 +251,7 @@ class AA:
     def we_are_in_center(self):
         # res = self.current_x in (7, 8) and self.current_y in (7, 8)
         sensor_data = sensors()
-        res =  (sensor_data['dist'][0] > 150 and sensor_data['dist'][90] > 150 and sensor_data['dist'][45] > 150) or  (sensor_data['dist'][0] > 150 and sensor_data['dist'][270] > 150 and sensor_data['dist'][360-45] > 150)
+        res =  (sensor_data['dist'][0] > 180 and sensor_data['dist'][90] > 180 and sensor_data['dist'][45] > 180) or  (sensor_data['dist'][0] > 180 and sensor_data['dist'][270] > 180 and sensor_data['dist'][360-45] > 180)
         if res:
             logging.info(f"We are in center!!!")
             self.WE_ARE_IN_CENTER = True
