@@ -248,7 +248,7 @@ class AA:
     def we_are_in_center(self):
         # res = self.current_x in (7, 8) and self.current_y in (7, 8)
         sensor_data = sensors()
-        res =  sensor_data['dist'][0] > 150 and sensor_data['dist'][90] > 150 and sensor_data['dist'][45] > 150
+        res =  (sensor_data['dist'][0] > 150 and sensor_data['dist'][90] > 150 and sensor_data['dist'][45] > 150) or  (sensor_data['dist'][0] > 150 and sensor_data['dist'][270] > 150 and sensor_data['dist'][360-45] > 150)
         if res:
             logging.info(f"We are in center!!!")
             self.WE_ARE_IN_CENTER = True
