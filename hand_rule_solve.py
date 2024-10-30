@@ -292,16 +292,21 @@ if __name__ == "__main__":
     robot = AA(start_RightHand)
     input("Вы готовы, дети?")
     robot.autopilot()
+    robot.dump_history()
 
     is_autopilot = 1 == int(input("autopilot or not? 1 - autopilot"))
     if is_autopilot:
+        robot = AA(start_RightHand)
         robot.autopilot()
+        robot.dump_history()
     else:
         robot.run_by_history()
 
     is_autopilot = 1 == int(input("autopilot or not? 1 - autopilot"))
     if is_autopilot:
+        robot = AA(start_RightHand)
         robot.autopilot()
+        robot.dump_history()
     else:
         robot.run_by_history()
     
