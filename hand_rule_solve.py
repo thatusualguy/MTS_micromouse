@@ -103,7 +103,13 @@ def backwards():
 
 def right():
     turn = 90
-    data = {"id":real_robotId, "direction": "right", "len": abs(int(turn))}
+
+    yaw = sensors(True)['yaw']
+    closest = closest_angle(yaw+turn)
+    delta = get_turn_direction(yaw, closest)
+
+
+    data = {"id":real_robotId, "direction": "right", "len": abs(int(turn+delta))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
@@ -112,7 +118,12 @@ def right():
 
 def left():
     turn = 90
-    data = {"id":real_robotId, "direction": "left", "len": abs(int(turn))}
+
+    yaw = sensors(True)['yaw']
+    closest = closest_angle(yaw+turn)
+    delta = get_turn_direction(yaw, closest)
+
+    data = {"id":real_robotId, "direction": "left", "len": abs(int(turn+delta))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
