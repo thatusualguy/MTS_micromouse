@@ -104,8 +104,8 @@ def backwards():
 def right():
     turn = 90
 
-    yaw = sensors(True)['yaw']
-    closest = closest_angle(yaw+turn)
+    yaw = sensors(True)['yaw'] + turn
+    closest = closest_angle(yaw)
     delta = get_turn_direction(yaw, closest)
 
 
@@ -119,8 +119,8 @@ def right():
 def left():
     turn = 90
 
-    yaw = sensors(True)['yaw']
-    closest = closest_angle(yaw+turn)
+    yaw = sensors(True)['yaw'] - turn
+    closest = closest_angle(yaw)
     delta = get_turn_direction(yaw, closest)
 
     data = {"id":real_robotId, "direction": "left", "len": abs(int(turn-delta))}
