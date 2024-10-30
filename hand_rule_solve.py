@@ -272,11 +272,22 @@ class AA:
         logging.info(f"yaw: {sensor_data['yaw']}, dx: {dx}, dy: {dy}")
         return dx, dy
 
+    def dump_history(self):
+        with open('move_history.json', 'w') as fout:
+            fout.write(json.dumps(self.move_history))
+        logging.info('write history in file')
+
+    def load_history(self):
+        with open('move_history.json', 'r') as fin:
+            inp_string = fin.read()
+            self.move_history = json.loads(inp_string)
+        logging.info('readed history from file')
 
 if __name__ == "__main__":
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
     print(girl_pasta)
+
 
     start_RightHand = True
     start_RightHand = 1 == int(input("С какой руки начать? 1 - правой"))
@@ -297,3 +308,4 @@ if __name__ == "__main__":
         robot.run_by_history()
     
     print(girl_pasta)
+
