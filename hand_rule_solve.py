@@ -117,7 +117,10 @@ def left():
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
     microstrafe()
+
+
 nostrafe = False
+
 def microstrafe():
     if nostrafe:
         return
@@ -275,7 +278,6 @@ class AA:
         logging.info('readed history from file')
 
 if __name__ == "__main__":
-    global nostrafe
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
     print(girl_pasta)
