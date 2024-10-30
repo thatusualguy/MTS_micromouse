@@ -84,7 +84,7 @@ def sensors(no_wait = False) -> dict[str, dict[int, int] | int]:
         return result
 
 def forward():
-    dist = 140
+    dist = 150
     data = {"id":real_robotId, "direction": "forward", "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
@@ -93,7 +93,7 @@ def forward():
 
 
 def backwards():
-    dist = 140
+    dist = 150
     data = {"id":real_robotId, "direction": "backward", "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
