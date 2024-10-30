@@ -89,6 +89,7 @@ def forward():
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
+    microstrafe()
 
 
 def backwards():
@@ -97,6 +98,7 @@ def backwards():
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
+    microstrafe()
 
 
 def right():
@@ -105,21 +107,8 @@ def right():
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
+    microstrafe()
 
-    while True:
-        yaw = sensors(True)['yaw']
-        closest = closest_angle(yaw)
-        delta = get_turn_direction(yaw, closest)
-
-        logging.info(f"MICROSTRAFE yaw {yaw} closest {closest} delta {delta}")
-
-        if abs(delta)>3:
-            direction = 1
-            if delta<0:
-                direction = -1
-            pwm_move(255*direction, 20, -255*direction, 20)
-        else:
-            break
 
 def left():
     turn = 90
@@ -127,7 +116,9 @@ def left():
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
+    microstrafe()
 
+def microstrafe():
     while True:
         yaw = sensors(True)['yaw']
         closest = closest_angle(yaw)
