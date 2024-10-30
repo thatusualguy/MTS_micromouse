@@ -1,4 +1,4 @@
-from Point import Point
+from backup.Point import Point
 
 # TYPE = "local"
 TYPE = "real"
