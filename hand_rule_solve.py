@@ -117,8 +117,10 @@ def left():
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
     microstrafe()
-
+nostrafe = False
 def microstrafe():
+    if nostrafe:
+        return
     while True:
         yaw = sensors(True)['yaw']
         closest = closest_angle(yaw)
@@ -276,6 +278,9 @@ if __name__ == "__main__":
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
     print(girl_pasta)
+
+    global nostrafe
+    nostrafe = 1 == int(input("Без стрейфов? 1 - без"))
 
 
     start_RightHand = True
