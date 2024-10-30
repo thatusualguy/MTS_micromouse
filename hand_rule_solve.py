@@ -275,11 +275,11 @@ class AA:
         logging.info('readed history from file')
 
 if __name__ == "__main__":
+    global nostrafe
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
     print(girl_pasta)
 
-    global nostrafe
     nostrafe = 1 == int(input("Без стрейфов? 1 - без"))
 
 
