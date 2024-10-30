@@ -123,7 +123,7 @@ def left():
     closest = closest_angle(yaw+turn)
     delta = get_turn_direction(yaw, closest)
 
-    data = {"id":real_robotId, "direction": "left", "len": abs(int(turn+delta))}
+    data = {"id":real_robotId, "direction": "left", "len": abs(int(turn-delta))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
