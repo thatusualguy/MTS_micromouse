@@ -40,8 +40,8 @@ def sensors(no_wait = False) -> dict[str, dict[int, int] | int]:
     #     print("sleeping", time_to_sleep)
     #     time.sleep(time_to_sleep)
     # shared.prev_request = time.time()
-
-    sleep(wait_time)
+    if not no_wait:
+        sleep(wait_time)
 
     if TYPE == "real":
         data = sensors_raw()
@@ -98,6 +98,21 @@ def right():
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
 
+    while True:
+        yaw = sensors(True)['yaw']
+        closest = closest_angle(yaw)
+        delta = get_turn_direction(yaw, closest)
+
+        logging.info(f"MICROSTRAFE yaw {yaw} closest {closest} delta {delta}")
+
+        if abs(delta)>3:
+            direction = 1
+            if delta<0:
+                direction = -1
+            pwm_move(255*direction, 20, -255*direction, 20)
+        else:
+            break
+
 def left():
     turn = 90
     data = {"id":real_robotId, "direction": "left", "len": abs(int(turn))}
@@ -153,10 +168,13 @@ class AA:
         self.current_x = 0
         sev_yaw = sensors()['yaw_raw']
 
+        self.move_history = []
+
         self.isRightHand = isRightHand
-        self.autopilot()
+        # self.autopilot()
 
     def autopilot(self):
+        self.move_history = []
         logging.info(f"Autopilot in {self.current_x} {self.current_y} start")
         for rotation in self.get_neighbours():
             if rotation == 'left':
@@ -173,20 +191,41 @@ class AA:
             elif rotation == 'left':
                 self.rotate_right()
         logging.info(f"Autopilot in {self.current_x} {self.current_y} end")
+
+    def run_by_history(self):
+        TIME_SLEEP_HISTORY = 1
+        for move in self.move_history:
+            if move == 'left':
+                self.rotate_left(write_to_history=False)
+            if move == 'right':
+                self.rotate_right(write_to_history=False)
+            if move == 'forward':
+                self.move_forward(write_to_history=False)
+            if move == 'back':
+                self.move_back(write_to_history=False)
+            time.sleep(TIME_SLEEP_HISTORY)
     
-    def rotate_left(self):
+    def rotate_left(self, write_to_history=True):
+        if write_to_history:
+            self.move_history.append('left')
         left()
     
-    def rotate_right(self):
+    def rotate_right(self, write_to_history=True):
+        if write_to_history:
+            self.move_history.append('right')
         right()
     
-    def move_forward(self):
+    def move_forward(self, write_to_history=True):
+        if write_to_history:
+            self.move_history.append('forward')
         dx, dy = self.get_by_yaw()
         self.current_x += dx
         self.current_y += dy
         forward()
     
-    def move_back(self):
+    def move_back(self, write_to_history=True):
+        if write_to_history:
+            self.move_history.append('back')
         dx, dy = self.get_by_yaw()
         self.current_x -= dx
         self.current_y -= dy
@@ -238,10 +277,23 @@ if __name__ == "__main__":
     logging.basicConfig()
     logging.getLogger().setLevel(logging.INFO)
     print(girl_pasta)
+
     start_RightHand = True
-    start_RightHand = 1 == int(input("С какой руки начать? 1 - правая"))
+    start_RightHand = 1 == int(input("С какой руки начать? 1 - правой"))
+    robot = AA(start_RightHand)
     input("Вы готовы, дети?")
-    AA(start_RightHand)
-    input("Вы готовы, дети?")
-    AA(not start_RightHand)
+    robot.autopilot()
+
+    is_autopilot = 1 == int(input("autopilot or not? 1 - autopilot"))
+    if is_autopilot:
+        robot.autopilot()
+    else:
+        robot.run_by_history()
+
+    is_autopilot = 1 == int(input("autopilot or not? 1 - autopilot"))
+    if is_autopilot:
+        robot.autopilot()
+    else:
+        robot.run_by_history()
+    
     print(girl_pasta)
