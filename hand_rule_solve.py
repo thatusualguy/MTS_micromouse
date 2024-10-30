@@ -91,6 +91,14 @@ def forward():
     print(requests.put(url, json = data).text)
 
 
+def backwards():
+    dist = 130
+    data = {"id":real_robotId, "direction": "backward", "len": abs(int(dist))}
+    url = real_baseUrl + '/' + "move"
+    logging.info(json.dumps(data))
+    print(requests.put(url, json = data).text)
+
+
 def right():
     turn = 90
     data = {"id":real_robotId, "direction": "right", "len": abs(int(turn))}
@@ -144,16 +152,6 @@ def get_turn_direction(start, target):
 
 def closest_angle(angle):
     return  (angle+45)//90* 90 % 360
-
-
-
-def backwards():
-    dist = 130
-    data = {"id":real_robotId, "direction": "backward", "len": abs(int(dist))}
-    url = real_baseUrl + '/' + "move"
-    logging.info(json.dumps(data))
-    print(requests.put(url, json = data).text)
-
 
 
 class AA:
