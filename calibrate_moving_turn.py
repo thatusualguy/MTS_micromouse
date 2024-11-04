@@ -1,3 +1,5 @@
+from time import sleep
+
 import requests
 
 from hand_rule_solve import sensors
@@ -13,8 +15,9 @@ def move(l_pwm, l_time, r_pwm, r_time):
 if __name__ == '__main__':
 
     print("Начало")
-
+    time = 0
     while True:
+        sleep(time+0.3)
         print(sensors(True))
         time = int(input("Time. 500?"))
         l_pwm, r_pwm = map(int, input("Мощность L R. 255 120?").strip().split())
