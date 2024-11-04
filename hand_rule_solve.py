@@ -277,13 +277,13 @@ class AA:
         logging.info(f"yaw: {sensor_data['yaw']}, dx: {dx}, dy: {dy}")
         return dx, dy
 
-    def dump_history(self):
-        with open('move_history.json', 'w') as fout:
+    def dump_history(self, filename="move_history.json"):
+        with open(filename, 'w') as fout:
             fout.write(json.dumps(self.move_history))
         logging.info('write history in file')
 
-    def load_history(self):
-        with open('move_history.json', 'r') as fin:
+    def load_history(self, filename="move_history.json"):
+        with open(filename, 'r') as fin:
             inp_string = fin.read()
             self.move_history = json.loads(inp_string)
         logging.info('readed history from file')
@@ -294,7 +294,6 @@ if __name__ == "__main__":
     print(girl_pasta)
 
     nostrafe = 1 == int(input("Без стрейфов? 1 - без"))
-
 
     start_RightHand = True
     start_RightHand = 1 == int(input("С какой руки начать? 1 - правой"))
