@@ -140,7 +140,7 @@ class AA:
 
     isRightHand = False
 
-    def __init__(self, isRightHand):
+    def __init__(self, isRightHand=True):
         self.WE_ARE_IN_CENTER = False
         global sev_yaw
 
