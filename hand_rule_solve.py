@@ -49,13 +49,13 @@ def sensors(no_wait = False) -> dict[str, dict[int, int] | int]:
         values = [
             data['laser']["1"],
             data['laser']["2"],
+            data['laser']["3"],
             data['laser']["4"],
             data['laser']["5"],
-            data['laser']["3"],
             data['laser']["6"],
         ]
         directions = [
-            180, 270, 0, 90, 45, 360-45
+            180, 90, 45, 0, 360-45, 270
         ]
 
         result: dict[str, dict[int, int] | int] = dict()
