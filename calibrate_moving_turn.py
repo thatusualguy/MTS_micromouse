@@ -16,7 +16,7 @@ if __name__ == '__main__':
     while True:
         time = int(input("Time. 500?"))
         l_pwm, r_pwm = map(int, input("Мощность L R. 255 120?").strip().split())
-        move(l_pwm, 500, r_pwm, 500)
+        move(l_pwm, time, r_pwm, time)
 
 
 
