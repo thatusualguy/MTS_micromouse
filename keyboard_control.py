@@ -43,7 +43,7 @@ if __name__ == "__main__":
 
     while True:
         print(sensors(no_wait=True))
-        print("Ожидаю команды... Q - поворот, W - движение")
+        print("Ожидаю команды... Q - поворот, W - движение. (q 90, w 100)")
         foo =  input().split()
         cmd = str.lower(foo[0])
         param = int(foo[1])
