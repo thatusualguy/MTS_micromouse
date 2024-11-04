@@ -323,7 +323,7 @@ class MouseCommands(object):
 
     @staticmethod
     def calibrate_basic_rotations():
-        res = MouseCommands.calibrate_all_angles([90])
+        res = MouseCommands.calibrate_all_angles([90, 45, 8, 2, 1])
         print("Calibrated turns:", res)
         shared.calibrated_turns = res
         MouseCommands.dump_data(shared.calibrated_turns)
@@ -413,6 +413,7 @@ class MouseCommands(object):
         calibrated_data = dict()
         for angle in angles:
             calibrated_data |= MouseCommands.find_params(angle)
+            MouseCommands.dump_data(calibrated_data)
         return calibrated_data
 
     @staticmethod
