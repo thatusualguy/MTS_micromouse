@@ -391,7 +391,7 @@ class MouseCommands(object):
         COUNT_TESTS = shared.CALIBRATION_COUNT_TESTS
         STEP = shared.CALIBRATION_STEP
 
-        power = 220
+        power = shared.CALIBRATION_START_POWER
 
         error = 10 ** 10
         error_accumulator = 0
