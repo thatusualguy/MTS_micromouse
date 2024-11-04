@@ -1,5 +1,6 @@
 import requests
 
+from hand_rule_solve import sensors
 from shared import real_robotId, real_baseUrl
 
 
@@ -14,6 +15,7 @@ if __name__ == '__main__':
     print("Начало")
 
     while True:
+        print(sensors(True))
         time = int(input("Time. 500?"))
         l_pwm, r_pwm = map(int, input("Мощность L R. 255 120?").strip().split())
         move(l_pwm, time, r_pwm, time)
