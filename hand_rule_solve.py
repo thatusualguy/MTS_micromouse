@@ -212,6 +212,7 @@ class AA:
         backwards()
 
     def get_neighbours(self):
+        sleep(0.8)
         neighbours = []
         sensor_data = sensors()
 
