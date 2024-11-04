@@ -22,14 +22,14 @@ local_token = 'some-token-code'
 local_CELL_SIZE = 180
 local_robotSize = 75
 
-MOVE_SLEEP_TIME = 0.1
+MOVE_SLEEP_TIME = 0.20
 CALIBRATION_EPS = 5
 CALIBRATION_COUNT_TESTS = 10
 CALIBRATION_STEP = 10
 CALIBRATION_START_POWER = 220
 # в миллисекундах
-CALIBRATION_LEFT_BOUND = 100
-CALIBRATION_RIGHT_BOUND = 2000
+CALIBRATION_LEFT_BOUND = 20
+CALIBRATION_RIGHT_BOUND = 600
 
 
 prev_request = -10000
@@ -56,9 +56,10 @@ calibrated_turns : dict[int,  dict[str, int | float]] = dict()
 
 # Информация по датчикам:
 #
-# 1 датчик смотрит назад
-# 2 датчик смотрит влево
-# 3 датчик правый под 45 градусов
-# 4 датчик передний
-# 5 датчик правый
-# 6 датчик 45 градусов левый
+# 6 датчик влево
+# 5 датчик влево под 45
+# 4 вперёд
+# 3 вправо 45
+# 2 вправо
+# 1 назад
+
