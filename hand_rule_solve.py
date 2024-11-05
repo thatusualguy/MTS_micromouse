@@ -23,77 +23,52 @@ def pwm_move(left, left_time_ms, right, right_time_ms):
 
 
 def sensors_raw() -> dict[Any]:
-    if TYPE == "real":
-        data = {"id":real_robotId, "type": "all"}
-        url = real_baseUrl + '/' + "sensor"
-        res = requests.post(url, json = data).json()
-        return res
-    elif TYPE == "local":
-        url = local_baseUrl + 'robot-motors/sensor-data'
-        params = { "token": local_token}
-        res = requests.get(url, params = params).json()
-        return res
+    data = {"id":real_robotId, "type": "all"}
+    url = real_baseUrl + '/' + "sensor"
+    res = requests.post(url, json = data).json()
+    return res
+
 
 def sensors(no_wait = False) -> dict[str, dict[int, int] | int]:
-    # time_to_sleep =  shared.prev_request+wait_time - time.time()
-    # if time_to_sleep > 0:
-    #     print("sleeping", time_to_sleep)
-    #     time.sleep(time_to_sleep)
-    # shared.prev_request = time.time()
     if not no_wait:
         sleep(wait_time)
 
-    if TYPE == "real":
-        data = sensors_raw()
+    data = sensors_raw()
 
-        values = [
-            data['laser']["1"],
-            data['laser']["2"],
-            data['laser']["3"],
-            data['laser']["4"],
-            data['laser']["5"],
-            data['laser']["6"],
-        ]
-        directions = [
-            180, 90, 45, 0, 360-45, 270
-        ]
+    values = [
+        data['laser']["1"],
+        data['laser']["2"],
+        data['laser']["3"],
+        data['laser']["4"],
+        data['laser']["5"],
+        data['laser']["6"],
+    ]
 
-        result: dict[str, dict[int, int] | int] = dict()
-        result['dist'] = dict(zip(directions, values))
-        result['yaw_raw'] = data["imu"]['yaw']
-        result['yaw']  = (result['yaw_raw'] + 360 - sev_yaw) % 360
-        logging.info(result)
-        return result
-    elif TYPE == "local":
-        data = sensors_raw()
+    directions = [
+        180, 90, 45, 0, 360-45, 270
+    ]
 
-        values = [
-            data['front_distance'],
-            data['right_side_distance'],
-            data['left_side_distance'],
-            data['back_distance'],
-        ]
-        directions = [
-            0, 90, 270, 180
-        ]
-
-        result: dict[str, dict[int, int] | int] = dict()
-        result['dist'] = dict(zip(directions, values))
-        result['yaw_raw'] = int(data["rotation_yaw"])
-        result['yaw']  = (result['yaw_raw'] + 360 - sev_yaw) % 360
-        return result
+    result: dict[str, dict[int, int] | int] = dict()
+    result['dist'] = dict(zip(directions, values))
+    result['yaw_raw'] = data["imu"]['yaw']
+    result['yaw']  = (result['yaw_raw'] + 360 - sev_yaw) % 360
+    result['motor'] =  result["motor"]
+    logging.info(result)
+    return result
 
 def forward():
-    dist = 40
-    data = {"id":real_robotId, "direction": "forward", "len": abs(int(dist))}
+    dist = shared.FORWARD_DIST
+    data = {"id":real_robotId, "direction": "forward", "speed": shared.MOVE_SPEED,
+            "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
 
 
 def backwards():
-    dist = 40
-    data = {"id":real_robotId, "direction": "backward", "len": abs(int(dist))}
+    dist = shared.BACK_DIST
+    data = {"id":real_robotId, "direction": "backward","speed": shared.MOVE_SPEED,
+            "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
@@ -106,8 +81,7 @@ def right():
     closest = closest_angle(yaw)
     delta = get_turn_direction(yaw, closest)
 
-
-    data = {"id":real_robotId, "direction": "right", "len": abs(int(turn+delta))}
+    data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "right", "len": abs(int(turn+delta))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
@@ -120,7 +94,7 @@ def left():
     closest = closest_angle(yaw)
     delta = get_turn_direction(yaw, closest)
 
-    data = {"id":real_robotId, "direction": "left", "len": abs(int(turn-delta))}
+    data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "left", "len": abs(int(turn-delta))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
@@ -172,9 +146,9 @@ class AA:
                 self.rotate_right()
         logging.info(f"Autopilot in {self.current_x} {self.current_y} end")
 
-    def run_by_history(self):
-        TIME_SLEEP_HISTORY = 1
-        for move in self.move_history:
+    def run_by_history(self, skip_moves = 0):
+
+        for move in self.move_history[skip_moves:]:
             if move == 'left':
                 self.rotate_left(write_to_history=False)
             if move == 'right':
@@ -183,8 +157,13 @@ class AA:
                 self.move_forward(write_to_history=False)
             if move == 'back':
                 self.move_back(write_to_history=False)
-            time.sleep(TIME_SLEEP_HISTORY)
-    
+
+            while True:
+                motor = sensors()['motor']
+                if motor["right_pwm"] == 0 and motor["left_pwm"] == 0:
+                    break
+                time.sleep(0.05)
+
     def rotate_left(self, write_to_history=True):
         if write_to_history:
             self.move_history.append('left')
