@@ -42,17 +42,21 @@ if __name__ == "__main__":
 
 
     while True:
-        print(sensors(no_wait=True))
+        sense = sensors(no_wait=True)
+        print(sense)
         print("Ожидаю команды... Q - поворот, W - движение. (q 90, w 100)")
+
+
         foo =  input().split()
         cmd = str.lower(foo[0])
-        param = int(foo[1])
         if cmd == "q":
+            param = int(foo[1])
             if param >0:
                 right(param)
             else:
                 left(param)
         if cmd == "w":
+            param = int(foo[1])
             if param > 0:
                 forward(param)
             else:
