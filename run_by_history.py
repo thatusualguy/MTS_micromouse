@@ -21,7 +21,7 @@ def run_by_history():
 
     start = input('Start?')
     logging.info('run by history')
-    robot.run_by_history()
+    robot.run_by_history(skip)
 
 
 if __name__ == "__main__":
