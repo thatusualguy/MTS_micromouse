@@ -66,4 +66,4 @@ def forward(distance):
         cur_distances: int = data[0]
 
 if __name__ == '__main__':
-    forward(180)
+    forward(130)
