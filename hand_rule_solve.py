@@ -156,7 +156,7 @@ class AA:
                 self.move_forward(write_to_history=False)
             if move == 'back':
                 self.move_back(write_to_history=False)
-
+            time.sleep(1)
             while True:
                 motor = sensors()['motor']
                 if motor["right_pwm"] == 0 and motor["left_pwm"] == 0:
