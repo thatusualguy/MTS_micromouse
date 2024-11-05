@@ -17,7 +17,7 @@ if __name__ == '__main__':
     print("Начало")
     time = 0
     while True:
-        sleep(time+0.3)
+        sleep(time/1000+0.3)
         print(sensors(True))
         time = int(input("Time. 500?"))
         l_pwm, r_pwm = map(int, input("Мощность L R. 255 120?").strip().split())
