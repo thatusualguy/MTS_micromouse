@@ -52,7 +52,7 @@ def sensors(no_wait = False) -> dict[str, dict[int, int] | int]:
     result['dist'] = dict(zip(directions, values))
     result['yaw_raw'] = data["imu"]['yaw']
     result['yaw']  = (result['yaw_raw'] + 360 - sev_yaw) % 360
-    result['motor'] =  result["motor"]
+    result['motor'] =  data["motor"]
     logging.info(result)
     return result
 
