@@ -17,7 +17,6 @@ def forward(dist):
 
 
 def backwards(dist):
-    dist = shared.BACK_DIST
     data = {"id":real_robotId, "direction": "backward","speed": shared.MOVE_SPEED,
             "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
