@@ -53,7 +53,7 @@ def forward(distance):
         # magic number yay
         multiplier *= max(0.5, min(1.0, 100 / abs(speed)**2)) # speed
         multiplier *= max(0.5, min(1.0, abs(diff)/120)) # distance
-
+        multiplier *= 2
         if abs(speed) > abs(diff):
             multiplier *= -1
         logging.info("Power", int(power * multiplier))
