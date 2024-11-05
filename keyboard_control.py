@@ -3,33 +3,37 @@ import logging
 
 import requests
 
+import shared
 from hand_rule_solve import sensors, forward
 from shared import real_robotId, real_baseUrl
 
 
 def forward(dist):
-    data = {"id":real_robotId, "direction": "forward", "len": abs(int(dist))}
+    data = {"id":real_robotId, "direction": "forward", "speed": shared.MOVE_SPEED,
+            "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
 
 
 def backwards(dist):
-    data = {"id":real_robotId, "direction": "backward", "len": abs(int(dist))}
+    dist = shared.BACK_DIST
+    data = {"id":real_robotId, "direction": "backward","speed": shared.MOVE_SPEED,
+            "len": abs(int(dist))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
 
 
 def right(turn):
-    data = {"id":real_robotId, "direction": "right", "len": abs(int(turn))}
+    data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "right", "len": abs(int(turn))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
 
 
 def left(turn):
-    data = {"id":real_robotId, "direction": "left", "len": abs(int(turn))}
+    data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "left", "len": abs(int(turn))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
