@@ -80,6 +80,9 @@ def turn_center():
     closest = closest_angle(yaw)
     delta = get_turn_direction(yaw, closest)
 
+    if abs(delta) < 5:
+        return
+    sleep(1)
 
     data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "right", "len": abs(int(delta))}
     if delta <0:
