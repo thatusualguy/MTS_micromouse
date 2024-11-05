@@ -39,7 +39,7 @@ BACK_DIST = 40
 # 70
 
 MOVE_SPEED = 70
-ROTATE_SPEED = 75
+ROTATE_SPEED = 85
 
 prev_request = -10000
 wait_time = 0.1
