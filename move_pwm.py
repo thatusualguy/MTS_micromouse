@@ -26,7 +26,7 @@ def forward(distance):
     max_error = 20
     max_final_speed = 2
     power = 150
-    SLEEP = 0.08
+    SLEEP = 0.1
 
     cur_distances = start_distances
     prev_distances = cur_distances
