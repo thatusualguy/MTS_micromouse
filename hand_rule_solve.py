@@ -147,7 +147,6 @@ class AA:
         logging.info(f"Autopilot in {self.current_x} {self.current_y} end")
 
     def run_by_history(self, skip_moves = 0):
-
         for move in self.move_history[skip_moves:]:
             if move == 'left':
                 self.rotate_left(write_to_history=False)
@@ -162,7 +161,7 @@ class AA:
                 motor = sensors()['motor']
                 if motor["right_pwm"] == 0 and motor["left_pwm"] == 0:
                     break
-                time.sleep(0.05)
+                time.sleep(1)
 
     def rotate_left(self, write_to_history=True):
         if write_to_history:
