@@ -4,7 +4,7 @@ import logging
 import requests
 
 import shared
-from hand_rule_solve import sensors, forward
+from hand_rule_solve import sensors
 from shared import real_robotId, real_baseUrl
 
 

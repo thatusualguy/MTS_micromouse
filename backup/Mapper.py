@@ -1,12 +1,7 @@
-from  math import *
-
-from Mouse import Mouse
-from Mover import *
 from PathFinder import *
 from MouseCommand import *
 from Point import *
 
-from shared import graph
 
 class Mapper:
 

@@ -10,7 +10,7 @@ import requests
 
 import shared
 from girl import girl_pasta
-from shared import real_robotId, TYPE, real_baseUrl, local_baseUrl, local_token, wait_time
+from shared import real_robotId, real_baseUrl, wait_time
 
 sev_yaw = 0
 
@@ -100,7 +100,7 @@ def right():
     closest = closest_angle(yaw)
     delta = get_turn_direction(yaw, closest)
 
-    data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "right", "len": abs(int(turn+delta))}
+    data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "right", "len": abs(int(turn + delta))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)
@@ -113,7 +113,7 @@ def left():
     closest = closest_angle(yaw)
     delta = get_turn_direction(yaw, closest)
 
-    data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "left", "len": abs(int(turn-delta))}
+    data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "left", "len": abs(int(turn - delta))}
     url = real_baseUrl + '/' + "move"
     logging.info(json.dumps(data))
     print(requests.put(url, json = data).text)

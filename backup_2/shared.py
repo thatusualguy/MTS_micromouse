@@ -8,9 +8,11 @@ center = [Point(7, 7), Point(7, 8), Point(8, 8), Point(8, 7), ]
 graph: dict[Point, list[Point]] = dict()
 
 
+# robot_ip = "https://"+ "192.168.201.213"
+# robot_id = "7536AF1646774A53"
 
-real_baseUrl = "http://192.168.11.223"
-real_robotId = "4547AF1642846053"
+real_baseUrl = "https://"+ "192.168.201.213"
+real_robotId = "7536AF1646774A53"
 gyro_correction = 0
 calibration_filename = 'calibrated_data.json'
 real_CELL_SIZE = 180

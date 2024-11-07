@@ -23,6 +23,9 @@ def forward(distance):
     start_distances: int = data[0]
     target_distances: int = data[0] - distance
 
+    if start_distances > 4000:
+        exit()
+
     max_error = 20
     max_final_speed = 2
     power = 150

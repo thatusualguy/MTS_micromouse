@@ -1,6 +1,6 @@
 import Mouse
 import Point
-from shared import center, graph
+from backup_2.shared import center
 
 
 class Mover:
