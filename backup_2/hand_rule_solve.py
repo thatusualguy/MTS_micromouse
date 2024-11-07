@@ -36,16 +36,14 @@ def sensors(no_wait = False) -> dict[str, dict[int, int] | int]:
     data = sensors_raw()
 
     values = [
-        data['laser']["1"],
-        data['laser']["2"],
-        data['laser']["3"],
-        data['laser']["4"],
-        data['laser']["5"],
-        data['laser']["6"],
+        data['laser']["left"],
+        data['laser']["forward"],
+        data['laser']["right"],
+        data['laser']["backward"],
     ]
 
     directions = [
-        180, 90, 45, 0, 360-45, 270
+        270, 0, 90, 180
     ]
 
     result: dict[str, dict[int, int] | int] = dict()
@@ -53,6 +51,7 @@ def sensors(no_wait = False) -> dict[str, dict[int, int] | int]:
     result['yaw_raw'] = data["imu"]['yaw']
     result['yaw']  = (result['yaw_raw'] + 360 - sev_yaw) % 360
     result['motor'] =  data["motor"]
+    result['encoders'] = data["encoders"]
     logging.info(result)
     return result
 

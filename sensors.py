@@ -7,10 +7,11 @@ from config import robot_ip, robot_id
 
 
 def get_sensors_raw(type:str):
-    url = f"{robot_ip}/sensors"
+    url = f"{robot_ip}/sensor"
     data = {"id": robot_id, "type": type }
-    res = requests.post(url, json=data).json()
-
+    res = requests.post(url, json=data)
+    print(res.text)
+    res = res.json()
     logging.info(f"Сенсоры ({type}) \t {res}")
     return res
 

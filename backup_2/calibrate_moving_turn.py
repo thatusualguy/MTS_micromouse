@@ -3,6 +3,7 @@ from time import sleep
 import requests
 
 from hand_rule_solve import sensors
+from sensors import get_yaw
 from shared import real_robotId, real_baseUrl
 
 
@@ -18,10 +19,10 @@ if __name__ == '__main__':
     time = 0
     while True:
         sleep(time/1000+0.3)
-        print(sensors(True))
+        print(get_yaw())
         time = int(input("Time. 500?"))
         l_pwm, r_pwm = map(int, input("Мощность L R. 255 120?").strip().split())
-        move(l_pwm, time, r_pwm, time)
+        move(r_pwm , time, l_pwm, time)
 
 
 

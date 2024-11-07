@@ -6,9 +6,10 @@ from typing import Any
 import requests
 
 from backup_2 import shared
+from backup_2.hand_rule_solve import pwm_move
 from backup_2.shared import real_baseUrl, real_robotId, gyro_correction, TYPE, local_baseUrl, local_token, real_CELL_SIZE, \
     local_CELL_SIZE, real_robotSize, local_robotSize
-
+from sensors import get_yaw
 
 
 def get_turn_direction(start, target):
@@ -323,6 +324,7 @@ class MouseCommands(object):
 
     @staticmethod
     def calibrate_basic_rotations():
+        # res = MouseCommands.calibrate_all_angles([90, 45, 8, 2, 1])
         res = MouseCommands.calibrate_all_angles([90, 45, 8, 2, 1])
         print("Calibrated turns:", res)
         shared.calibrated_turns = res
@@ -338,16 +340,15 @@ class MouseCommands(object):
 
     @staticmethod
     def calibrate_rotation(need_delta, power=120):
-        print(MouseCommands.sensors())
-        start_angle = MouseCommands.get_current_yaw()
+        start_angle = get_yaw()
         left_bound = shared.CALIBRATION_LEFT_BOUND
         right_bound = shared.CALIBRATION_RIGHT_BOUND
         middle = (left_bound+right_bound) // 2
-        # / 1000 - because middle is miliseconds
-        MouseCommands.rotate(power, time_s=middle / 1000)
-        new_angle = MouseCommands.get_current_yaw()
+        pwm_move(power, middle, -power, middle)
+        new_angle = get_yaw()
         current_delta = MouseCommands.get_delta(start_angle, new_angle)
-        while (left_bound + 1 < right_bound):
+        while left_bound + 1 < right_bound:
+            sleep(0.5)
             print(current_delta)
             if current_delta > need_delta:
                 right_bound = middle
@@ -355,26 +356,25 @@ class MouseCommands(object):
                 left_bound = middle
             middle = (left_bound+right_bound) // 2
             start_angle = new_angle
-            # / 1000 - because middle is miliseconds
-            MouseCommands.rotate(power, time_s=middle / 1000)
-            new_angle = MouseCommands.get_current_yaw()
+            pwm_move(power, middle, -power, middle)
+            new_angle = get_yaw()
             current_delta = MouseCommands.get_delta(start_angle, new_angle)
             print(left_bound, middle, right_bound)
-        # because right_bound is miliseconds
-        return right_bound / 1000
+        return right_bound
 
     @staticmethod
     def get_current_yaw():
-        return MouseCommands.sensors()['yaw']
+        return get_yaw()
 
     @staticmethod
     def rotate(power, time_s):
-        MouseCommands.move(power, time_s * 1000, -power, time_s * 1000)
-        sleep(time_s + shared.MOVE_SLEEP_TIME)
+        MouseCommands.move(power, time_s, -power, time_s)
+        sleep(time_s/1000 + shared.MOVE_SLEEP_TIME)
 
 
     @staticmethod
     def test_rotation(time, need_delta, power):
+        sleep(0.5)
         start_angle = MouseCommands.get_current_yaw()
         MouseCommands.rotate(power=power, time_s=time)
         new_angle = MouseCommands.get_current_yaw()

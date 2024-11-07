@@ -11,8 +11,8 @@ graph: dict[Point, list[Point]] = dict()
 # robot_ip = "https://"+ "192.168.201.213"
 # robot_id = "7536AF1646774A53"
 
-real_baseUrl = "https://"+ "192.168.201.213"
-real_robotId = "7536AF1646774A53"
+real_baseUrl = "http://"+ "192.168.17.1"
+real_robotId = "9547AF16207A6053"
 gyro_correction = 0
 calibration_filename = 'calibrated_data.json'
 real_CELL_SIZE = 180
@@ -28,10 +28,10 @@ MOVE_SLEEP_TIME = 0.20
 CALIBRATION_EPS = 5
 CALIBRATION_COUNT_TESTS = 10
 CALIBRATION_STEP = 10
-CALIBRATION_START_POWER = 190
+CALIBRATION_START_POWER = 150
 # в миллисекундах
 CALIBRATION_LEFT_BOUND = 20
-CALIBRATION_RIGHT_BOUND = 600
+CALIBRATION_RIGHT_BOUND = 300
 
 
 FORWARD_DIST = 160
