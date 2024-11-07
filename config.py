@@ -1,11 +1,11 @@
-robot_ip = "http://"+ "192.168.201.213"
-robot_id = "7536AF1646774A53"
+robot_ip = "http://"+ "192.168.17.1"
+robot_id = "9547AF16207A6053"
 
 yaw_north = 0
 
-#
-# heh
-# 123456789
+# motors
+MAX_RUN_TIME = 1000
 
-
-# 201 213
+# sensors
+SENSOR_REFRESH_RATE = 100
+SENSOR_SLEEP = 500

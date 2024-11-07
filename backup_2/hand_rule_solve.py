@@ -74,22 +74,7 @@ def backwards():
     print(requests.put(url, json = data).text)
     turn_center()
 
-def turn_center():
-    yaw = sensors(True)['yaw']
-    closest = closest_angle(yaw)
-    delta = get_turn_direction(yaw, closest)
 
-    if abs(delta) < 5:
-        return
-    sleep(1)
-
-    data = {"id":real_robotId, "speed": shared.ROTATE_SPEED, "direction": "right", "len": abs(int(delta))}
-    if delta <0:
-        data['direction'] = "left"
-
-    url = real_baseUrl + '/' + "move"
-    logging.info(json.dumps(data))
-    print(requests.put(url, json = data).text)
 
 
 def right():
