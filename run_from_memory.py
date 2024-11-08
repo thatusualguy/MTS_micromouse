@@ -15,7 +15,6 @@ def run_from_memory(actions:list[str]):
 
         action = action.split()
 
-
         microturn()
 
         if action[0] == "f":

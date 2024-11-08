@@ -73,7 +73,7 @@ def get_sensors():
 
     return res
 
-need_behind = 75
+need_behind = 80
 
 def get_behind_correction():
     distance = get_sensors()[180]

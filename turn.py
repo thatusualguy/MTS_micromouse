@@ -6,9 +6,9 @@ from motors import pwm
 from sensors import get_yaw
 from utils import get_turn_direction, closest_angle
 
-TURN_ERROR = 3
+TURN_ERROR = 7
 
-ADDED_DELTA = 2
+ADDED_DELTA = 10
 
 def microturn():
 
@@ -19,16 +19,17 @@ def microturn():
 
         logging.info(f"Need {closest} have {current_yaw} delta {delta}")
 
+        if abs(delta) < TURN_ERROR:
+            break
+
+
         if (delta)>0:
             delta += ADDED_DELTA
         else:
             delta -= ADDED_DELTA
 
-
-        if abs(delta) < TURN_ERROR:
-            break
-
-        turn(delta)
+        turn_one_degree(delta)
+        # turn(delta)
 
 
 
@@ -60,7 +61,7 @@ def turn_one_degree(angle):
     if angle < 0:
         force = -force
 
-    pwm(force, time, -force, time)
+    pwm(-force, time, force, time)
     sleep(time/1000 + 0.050)
 
 def turn_by_constant(angle):
@@ -70,5 +71,5 @@ def turn_by_constant(angle):
     if angle < 0:
         force = -force
 
-    pwm(force, time, -force, time)
+    pwm(-force, time, force, time)
     sleep(time/1000 + 0.150)

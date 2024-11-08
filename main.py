@@ -3,7 +3,7 @@ from time import sleep
 
 from backup_2.shared import calibrated_turns
 from motors import pwm
-from sensors import setup_sensors, get_sensors, get_yaw, calibrate_north
+from sensors import setup_sensors, get_sensors, get_yaw, calibrate_north, get_behind_correction
 from turn import turn, microturn, turn_one_degree
 
 
@@ -27,12 +27,19 @@ if __name__ == '__main__':
     print(get_yaw())
 
 
+    foo = get_behind_correction()
+    if foo != 0:
+        force = 150 * foo
+        pwm(force, 300, force, 300)
+        sleep(0.200)
+        # pwm(-255, 20, -255, 20)
 
-    # turn(90)
+
+# turn(90)
 
     # microturn()
 
-    turn_one_degree(1)
+    # turn_one_degree(1)
     # pwm(-140, 137, 140, 137)
     # pwm(-110, 161, 110, 161)
     # pwm(50, 300, 50, 300)
@@ -41,7 +48,7 @@ if __name__ == '__main__':
 
     # pwm(50, 40, -50, 40)
 
-    sleep(0.5)
-    print(get_yaw())
+    # sleep(0.5)
+    # print(get_yaw())
     # fwd()
 
