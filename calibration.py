@@ -12,9 +12,15 @@ class RotateCalibration:
         self.start_right = right
         self.ERROR_AGREEMENT = 5 
         self.COUNT_OF_TESTS_PER_VALUE = 5
+        self.results = []
         for angle in angels:
             self.need_angle = angle
-            self.calibration()
+            result = self.calibration()
+            self.results.append((angle, result))
+            input('continue')
+        for result in self.results:
+            print(*result, sep='\t')
+
 
     def calibration(self):
         # need_angle for example 90, 180, 95
@@ -24,15 +30,15 @@ class RotateCalibration:
         while left + 1 < right:
             middle = (left + right) // 2
             error, abs_error = self.test_rotation(middle)
-            if (abs_error / self.COUNT_OF_TESTS_PER_VALUE) <= self.ERROR_AGREEMENT:
-                print(f'CALIBRATION angle={self.need_angle} power={self.power} middle={middle}')
-                return True
+ #            if (abs_error / self.COUNT_OF_TESTS_PER_VALUE) <= self.ERROR_AGREEMENT:
+ #               return True
             print(left, middle, right)
             if error < 0:
                 left = middle
             else:
                 right = middle
-        return False
+        print(f'CALIBRATION angle={self.need_angle} power={self.power} middle={middle}')
+        return middle
 
     def test_rotation(self, time):
         error = 0
@@ -58,6 +64,6 @@ class RotateCalibration:
 
 
 if __name__ == "__main__":
-    calib = RotateCalibration(100, 100, 600, angels=[45, 60])
+    calib = RotateCalibration(100, 100, 600, angels=[angel for angel in range(75, 105, 2)])
 
 
