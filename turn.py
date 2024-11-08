@@ -45,9 +45,10 @@ def turn(angle):
 
         logging.info(f"Need {config.projected_yaw} have {cur_yaw} delta {delta}")
 
-        if 70<= abs(delta) <= 105:
-            turn_by_constant(delta)
-            continue
+        # if 70<= abs(delta) <= 105:
+        #     turn_by_constant(delta)
+        #     continue
+        turn_by_constant(delta)
 
         if abs(delta) <= TURN_ERROR:
             break
