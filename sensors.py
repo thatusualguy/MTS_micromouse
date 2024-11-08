@@ -14,6 +14,12 @@ def setup_sensors(refresh_rate_ms = SENSOR_REFRESH_RATE):
     requests.post(url, json=data)
     logging.info(f"Конфиг сенсоров {data}")
 
+
+def calibrate_north():
+    config.yaw_north = 0
+    config.yaw_north = get_yaw()
+    logging.info(f"Север {config.yaw_north}")
+
 def get_sensors_raw(type_: str):
     url = f"{robot_ip}/sensor"
     data = {"id": robot_id, "type": type_}
@@ -41,8 +47,8 @@ def get_motors():
 
 def get_encoders():
     data = get_sensors_raw("encoders")
-    res = {"left": data["encoders"]["left_encoder_delta_sum"],
-           "right": data["encoders"]["right_encoder_delta_sum"], }
+    res = {"left":  config.MOTOR_DIRECTION * int(data["encoders"]["left_encoder_delta_sum"]),
+           "right":  config.MOTOR_DIRECTION * int(data["encoders"]["right_encoder_delta_sum"]), }
     return res
 
 

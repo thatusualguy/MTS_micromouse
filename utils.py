@@ -1,5 +1,3 @@
-from sensors import get_yaw
-
 def get_turn_direction(start, target):
     turn = (target - start) % 360
     if turn > 180:
