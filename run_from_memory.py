@@ -4,7 +4,7 @@ import logging
 from backup_2.girl import girl_pasta
 from move import forward
 from sensors import setup_sensors, calibrate_north, get_behind_correction
-from turn import turn, microturn
+from turn import turn, microturn, turn_by_constant
 
 
 def run_from_memory(actions:list[str]):
@@ -25,8 +25,7 @@ def run_from_memory(actions:list[str]):
 
         elif action[0] == "t":
             val = int(action[1])
-            turn(val)
-            correction = 0
+            turn_by_constant(val)
         elif action[0] == "w":
             input("Нажмите для продолжения")
         elif action[0] == "c":
