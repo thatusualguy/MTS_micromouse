@@ -3,9 +3,8 @@ import logging
 
 import requests
 
-import shared
-from hand_rule_solve import sensors
-from shared import real_robotId, real_baseUrl
+from backup_2 import shared
+from backup_2.shared import real_robotId, real_baseUrl
 
 
 def forward(dist):
@@ -64,5 +63,5 @@ if __name__ == "__main__":
                 forward(param)
             else:
                 backwards(param)
-        if cmd == "s":
-            print(sensors(no_wait=True))
+        # if cmd == "s":
+            # print(sensors(no_wait=True))
