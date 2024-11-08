@@ -1,25 +1,47 @@
 import logging
 from time import sleep
 
+from backup_2.shared import calibrated_turns
 from motors import pwm
-from sensors import setup_sensors, get_sensors
+from sensors import setup_sensors, get_sensors, get_yaw, calibrate_north
+from turn import turn, microturn, turn_one_degree
+
 
 def fwd():
     # 1 клетка почти
     pwm(100, 300, 100, 300)
-    sleep(0.330)
+    sleep(0.300)
     pwm(-255, 20, -255, 20)
 
 if __name__ == '__main__':
-    logging.basicConfig()
+    FORMAT = "%(funcName)15s - %(message)s"
+    logging.basicConfig(format=FORMAT)
     logging.getLogger().setLevel(logging.INFO)
 
     setup_sensors()
-    print(get_sensors())
+    calibrate_north()
 
+    # input()
+
+    # print(get_sensors())
+    print(get_yaw())
+
+
+
+    # turn(90)
+
+    # microturn()
+
+    turn_one_degree(1)
     # pwm(-140, 137, 140, 137)
     # pwm(-110, 161, 110, 161)
-    # pwm(110, 161, -110, 161)
+    # pwm(50, 300, 50, 300)
 
-    fwd()
+    # angle = 81
+
+    # pwm(50, 40, -50, 40)
+
+    sleep(0.5)
+    print(get_yaw())
+    # fwd()
 

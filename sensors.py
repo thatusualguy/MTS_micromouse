@@ -10,7 +10,7 @@ from config import robot_ip, robot_id, SENSOR_REFRESH_RATE
 # curl -X POST -H "Content-Type: application/json" -d '{"id": "F535AF9628574A53", "interval": 20, "enabled_sensors": ["left", "right", "forward"]}' http://192.168.69.144/sensor_config
 def setup_sensors(refresh_rate_ms = SENSOR_REFRESH_RATE):
     url = f"{robot_ip}/sensor_config"
-    data = {"id": robot_id, "interval": refresh_rate_ms, "enabled_sensors": ["left", "right", "forward", "backward"]}
+    data = {"id": robot_id, "interval": refresh_rate_ms, "enabled_sensors": ["backward"]}
     requests.post(url, json=data)
     logging.info(f"Конфиг сенсоров {data}")
 
@@ -36,6 +36,8 @@ def get_yaw_raw():
 
 def get_yaw():
     data = get_sensors_raw("imu")
+    logging.info(data)
+
     return (data["imu"]["yaw"] + 360 - config.yaw_north) % 360
 
 
@@ -57,17 +59,27 @@ def get_sensors():
 
     data = get_sensors_raw("laser")
     lasers = [
-        data["laser"]["forward"],
-        data["laser"]["right"],
+        # data["laser"]["forward"],
+        # data["laser"]["right"],
         data["laser"]["backward"],
-        data["laser"]["left"],
+        # data["laser"]["left"],
     ]
     directions = [
-        0, 90, 180, 270
+        # 0, 90, 180, 270
+        180
     ]
 
     res = dict(zip(directions, lasers))
 
     return res
 
+need_behind = 75
+
+def get_behind_correction():
+    distance = get_sensors()[180]
+    delta = need_behind - distance
+
+    cell_delta = delta/config.BACK_SENSOR_CELL
+
+    return cell_delta
 

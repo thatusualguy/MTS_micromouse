@@ -3,26 +3,39 @@ import logging
 
 from backup_2.girl import girl_pasta
 from move import forward
-from sensors import setup_sensors, calibrate_north
-from turn import turn
+from sensors import setup_sensors, calibrate_north, get_behind_correction
+from turn import turn, microturn
 
 
 def run_from_memory(actions:list[str]):
 
+    correction = 0
     for i, action in enumerate(actions):
-        logging.debug(f"{i}: {action}")
+        logging.info(f"{i}: {action}")
 
         action = action.split()
 
+
+        microturn()
+
         if action[0] == "f":
             val = int(action[1])
+            val += correction
             forward(val)
+            correction = 0
+
         elif action[0] == "t":
             val = int(action[1])
             turn(val)
+            correction = 0
+        elif action[0] == "w":
+            input("Нажмите для продолжения")
+        elif action[0] == "c":
+            correction = get_behind_correction()
 
 if __name__ == '__main__':
-    logging.basicConfig()
+    FORMAT = "%(funcName)15s - %(message)s"
+    logging.basicConfig(format=FORMAT)
     logging.getLogger().setLevel(logging.INFO)
 
     setup_sensors()
