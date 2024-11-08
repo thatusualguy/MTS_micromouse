@@ -45,8 +45,8 @@ if __name__ == "__main__":
 
 
     while True:
-        sense = sensors(no_wait=True)
-        print(sense)
+        # sense = sensors(no_wait=True)
+        # print(sense)
         print("Ожидаю команды... Q - поворот, W - движение. (q 90, w 100)")
 
 

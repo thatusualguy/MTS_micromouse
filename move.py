@@ -12,7 +12,7 @@ def forward(dist_cells):
 
     for i in range(floor(dist_cells)):
         pwm(100, 300, 100, 300)
-        sleep(0.300)
+        sleep(0.260)
         pwm(-255, 20, -255, 20)
 
     foo = dist_cells - floor(dist_cells)
