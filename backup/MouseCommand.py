@@ -9,7 +9,7 @@ from backup_2 import shared
 from backup_2.hand_rule_solve import pwm_move
 from backup_2.shared import real_baseUrl, real_robotId, gyro_correction, TYPE, local_baseUrl, local_token, real_CELL_SIZE, \
     local_CELL_SIZE, real_robotSize, local_robotSize
-from sensors import get_yaw
+from finals.sensors import get_yaw
 
 
 def get_turn_direction(start, target):

@@ -2,8 +2,7 @@ from time import sleep
 
 import requests
 
-from hand_rule_solve import sensors
-from sensors import get_yaw
+from finals.sensors import get_yaw
 from shared import real_robotId, real_baseUrl
 
 

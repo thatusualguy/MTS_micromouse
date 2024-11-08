@@ -49,8 +49,8 @@ def get_motors():
 
 def get_encoders():
     data = get_sensors_raw("encoders")
-    res = {"left":  config.MOTOR_DIRECTION * int(data["encoders"]["left_encoder_delta_sum"]),
-           "right":  config.MOTOR_DIRECTION * int(data["encoders"]["right_encoder_delta_sum"]), }
+    res = {"left": config.MOTOR_DIRECTION * int(data["encoders"]["left_encoder_delta_sum"]),
+           "right": config.MOTOR_DIRECTION * int(data["encoders"]["right_encoder_delta_sum"]), }
     return res
 
 
@@ -79,7 +79,7 @@ def get_behind_correction():
     distance = get_sensors()[180]
     delta = need_behind - distance
 
-    cell_delta = delta/config.BACK_SENSOR_CELL
+    cell_delta = delta / config.BACK_SENSOR_CELL
 
     return cell_delta
 

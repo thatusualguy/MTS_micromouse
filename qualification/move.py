@@ -3,7 +3,7 @@ import logging
 
 import requests
 
-from config import robot_ip, robot_id
+from finals.config import robot_ip, robot_id
 
 
 def pwm(left, left_t, right, right_t):

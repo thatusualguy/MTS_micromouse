@@ -8,7 +8,7 @@ def run_by_history():
     filename = input('get filename of history: ')
 
     if filename == "":
-        filename = "../test_labirint.json"
+        filename = "../finals/test_labirint.json"
 
     robot.load_history(filename)
     logging.info(f'{filename} is readed, lets start')

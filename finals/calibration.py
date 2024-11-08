@@ -1,7 +1,6 @@
 import motors
 import sensors
 from time import sleep
-import logging
 
 
 class RotateCalibration:
